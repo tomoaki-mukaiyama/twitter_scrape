@@ -5,9 +5,6 @@
  ・最新のツイートの日付(固定ツイートは除く)  
  ・ページでdm解放か否かを検証  
 
-# 読み込み遅い問題
-
-
 # 大量のURLを捌く問題
 参照　https://nishinatoshiharu.com/rails-treat-huge-csv/
 分割してメモリ負担を減らす
