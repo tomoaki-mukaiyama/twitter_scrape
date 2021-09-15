@@ -21,14 +21,14 @@ def set_options
 end
 
 def scrape(options)
+    
     driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
     
     @url_array.each_with_index do |url, index|
-        # driver = Selenium::WebDriver.for(:chrome, options: options)
         driver.get(url)
         driver.manage.timeouts.implicit_wait = 5
         
-        # ユーザ名, DMアイコン, フォロー数, フォロワー数
+        #  DMアイコン, フォロー数, フォロワー数, ユーザ名　のセレクタ
         dm_button_selector = '[data-testid="sendDMFromProfile"]'
         follow_xpath = '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div[1]/div/div[2]/div/div/div[1]/div/div[5]/div[1]/a/span[1]/span'
         follower_xpath = '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div[1]/div/div[2]/div/div/div[1]/div/div[5]/div[2]/a/span[1]/span'
@@ -48,18 +48,20 @@ def scrape(options)
         current_url = driver.current_url
         
         @info_array << [dm_button, follow, follower, account_username, current_url]
-
+        
         # 進捗
         p (index + 1).to_s + "件目"
+        p "1スリープ"
+        sleep 1
+        p "2スリープ"
+        sleep 1
+        p "再開"
 
-        sleep 0.9
+        rescue Selenium::WebDriver::Error::NoSuchElementError
+        p 'No Such Element Error'
 
-    rescue Selenium::WebDriver::Error::NoSuchElementError
-        puts 'No Such Element Error'
-        
     end
 end
-
 
 @info_array = [["DM" ,"follow","follower","name"]]
 
@@ -71,4 +73,4 @@ CSV.open("./csv_files/twit_data-#{DateTime.now.strftime("%Y_%m_%d-%H:%M")}.csv",
     @info_array.each do |array|
         csv << array
     end
-end
+end 
