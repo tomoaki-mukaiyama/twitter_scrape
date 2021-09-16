@@ -1,6 +1,2 @@
-.env
 .byebug_history
-url.rb
-url_list.csv
-info_list.csv
 /csv_files
