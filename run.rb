@@ -3,7 +3,6 @@ require "webdrivers"
 require "byebug"
 require "csv"
 require "date"
-
 # require "./url"
 require "./get_url"
 
@@ -23,15 +22,15 @@ def set_options
     capabilities #return
 end
 
-def scrape(options)
+def scrape_twitter(options)
     
     driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
     
-    @url_array.each_with_index do |url, index|
-        # 現在何件目かをコンソールに出力
-        p (index + 1).to_s + "件目"
-        sleep 2
-
+    @twitter_urls.each_with_index do |url, index|
+        sleep 1.5
+        
+        # ログ出力
+        p (index + 1).to_s + "件目: #{url}"
         driver.get(url)
         driver.manage.timeouts.implicit_wait = 5
         
@@ -65,7 +64,7 @@ end
 
 @info_array = [["DM" ,"follow","follower","name"]]
 
-scrape(set_options)
+scrape_twitter(set_options)
 
 # ./csv_files/twit_data-(日時).csv で新規保存
 CSV.open("./csv_files/twit_data-#{DateTime.now.strftime("%Y_%m_%d-%H:%M")}.csv", "w") do |csv|

@@ -25,9 +25,9 @@ def get_url(options)
   driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
   url_array = []
   
-  # studioのプロフィール URLを配列取得
-  while true do
-    page_num = 1
+  page_num = 11
+  # studio内ののプロフィール URLを配列取得する為のLOOP
+  loop do
     sleep 1
     driver.manage.timeouts.implicit_wait = 3
     url = "https://0000.studio/commission-list?page=#{page_num}"
@@ -40,16 +40,16 @@ def get_url(options)
         page_num = -1
         break
     end
-
+    # 一回でもユーザーが取得できなければ無限ループ解除
     if page_num == -1
       break
     end
-
-    page_num ++
+    # 終わりじゃなければ、次のページへ飛ぶ
+    page_num += 1 
   end
 
-  #プロフィールにtwitterURLがあれば、配列に入れていく
   @twitter_urls = []
+  #プロフィールにtwitterURLがあれば、配列に入れていく為のeach do
   url_array.each do |url|
     sleep 1
     driver.get(url)
@@ -62,9 +62,9 @@ def get_url(options)
     rescue Selenium::WebDriver::Error::NoSuchElementError
     p 'No Such Element Error'
   end
+
 end
-  
-
-
 
 get_url(set_options)
+
+p @twitter_urls
