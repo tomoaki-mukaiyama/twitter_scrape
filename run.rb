@@ -1,9 +1,11 @@
 require "selenium-webdriver"
 require "webdrivers"
 require "byebug"
-require "./url"
 require "csv"
 require "date"
+# require "./url"
+require "./get_url"
+
 
 def set_options
     ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36"
@@ -25,6 +27,10 @@ def scrape(options)
     driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
     
     @url_array.each_with_index do |url, index|
+        # 現在何件目かをコンソールに出力
+        p (index + 1).to_s + "件目"
+        sleep 2
+
         driver.get(url)
         driver.manage.timeouts.implicit_wait = 5
         
@@ -49,13 +55,6 @@ def scrape(options)
         
         @info_array << [dm_button, follow, follower, account_username, current_url]
         
-        # 進捗
-        p (index + 1).to_s + "件目"
-        p "1スリープ"
-        sleep 1
-        p "2スリープ"
-        sleep 1
-        p "再開"
 
         rescue Selenium::WebDriver::Error::NoSuchElementError
         p 'No Such Element Error'

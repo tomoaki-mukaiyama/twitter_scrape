@@ -3,7 +3,6 @@
  ・ページでdm解放か否か  
  ・フォロー  
  ・フォロワー  
- ・最新のツイートの日付(固定ツイートは除く)  
 
 # 大量のURLを捌く問題
 参照　https://nishinatoshiharu.com/rails-treat-huge-csv/
