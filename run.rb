@@ -3,7 +3,6 @@ require "webdrivers"
 require "byebug"
 require "csv"
 require "date"
-# require "./url"
 require "./get_url"
 
 
@@ -19,18 +18,18 @@ def set_options
         }
     )
     
-    capabilities #return
+    capabilities
 end
 
 def scrape_twitter(options)
     
     driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
-    
+    url_count = @twitter_urls.count
     @twitter_urls.each_with_index do |url, index|
         sleep 1.5
         
         # ログ出力
-        p (index + 1).to_s + "件目: #{url}"
+        p "#{(index + 1).to_s}/#{url_count}"
         driver.get(url)
         driver.manage.timeouts.implicit_wait = 5
         

@@ -1,8 +1,6 @@
 require "selenium-webdriver"
 require "webdrivers"
 require "byebug"
-require "csv"
-require "date"
 
 # seleniumのオプションをセット
 def set_options
@@ -19,13 +17,12 @@ def set_options
     capabilities #return
 end
 
-
 def get_url(options)
 
   driver = Selenium::WebDriver.for(:chrome, desired_capabilities: options)
   url_array = []
   
-  page_num = 11
+  page_num = 1
   # studio内ののプロフィール URLを配列取得する為のLOOP
   loop do
     sleep 1
@@ -66,5 +63,3 @@ def get_url(options)
 end
 
 get_url(set_options)
-
-p @twitter_urls
